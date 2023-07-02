@@ -1,16 +1,16 @@
-package com.example.hellokotlin;
+package com.example.hellokotlin.learnjava;
 
 import android.util.Log;
 import com.example.apt_annotation.ExecutorTest;
 import com.example.apt_annotation.Learning;
 
 @ExecutorTest
-public class Test implements Learning {
+public class LearnGeneric implements Learning {
 
-    private static final String TAG = "Test";
+    private static final String TAG = "LearnGeneric";
 
     @Override
     public void run() {
-        Log.i(TAG, "test");
+        Log.i(TAG, "LearnGeneric");
     }
 }
