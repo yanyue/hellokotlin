@@ -29,9 +29,8 @@ class RxTimer {
     }
 
     fun time(time: Long,
-             action: () -> Unit = {},
-             h: CoroutineExceptionHandler = handler): RxTimer {
-        mScope.get()?.launch(Dispatchers.Default + SupervisorJob() + h) {
+             action: () -> Unit = {}): RxTimer {
+        mScope.get()?.launch(Dispatchers.Default + SupervisorJob() + handler) {
             Log.i(TAG, "counting down: $time, id=${this.hashCode()}")
             delay(time)
             withContext(Dispatchers.Main) {

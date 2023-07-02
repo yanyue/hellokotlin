@@ -1,6 +1,7 @@
 package com.example.hellokotlin
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -13,11 +14,16 @@ import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import com.example.hellokotlin.databinding.ActivityMainBinding
 import com.example.hellokotlin.kk.RxTimer
+import com.example.hellokotlin.kk.launch
 
 class MainActivity : AppCompatActivity() {
 
     init {
         RxTimer.init(lifecycleScope)
+    }
+
+    companion object {
+        const val TAG = "MainActivity"
     }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -41,6 +47,9 @@ class MainActivity : AppCompatActivity() {
                 .setAnchorView(R.id.fab)
                 .setAction("Action", null).show()
         }
+
+        // 直接调用launch方法
+        test()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,5 +72,11 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    fun test() {
+        launch {
+            Log.d(TAG, "invoke launch directly")
+        }
     }
 }
