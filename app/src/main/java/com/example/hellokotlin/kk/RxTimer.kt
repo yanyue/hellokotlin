@@ -10,6 +10,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.ref.WeakReference
 
 class RxTimer {
 
@@ -19,23 +20,23 @@ class RxTimer {
         private val handler = CoroutineExceptionHandler { _, exception ->
             Log.e(TAG, "CoroutineExceptionHandler got $exception")
         }
-        private var mScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob() + handler)
+        private var mScope: WeakReference<CoroutineScope> = WeakReference(null)
 
         @JvmStatic
         fun init(scope: CoroutineScope) {
-            mScope.cancel()
-            mScope = scope
+            mScope = WeakReference(scope)
         }
     }
 
-    fun time(time: Long, action: () -> Unit) {
-        mScope.launch {
-            Log.i(TAG, "counting down: $time")
+    fun time(time: Long, action: () -> Unit): RxTimer {
+        mScope.get()?.launch(Dispatchers.Default + SupervisorJob() + handler) {
+            Log.i(TAG, "counting down: $time, id=${this.hashCode()}")
             delay(time)
             withContext(Dispatchers.Main) {
                 action()
             }
         }
+        return this
     }
 
     fun cancel() {

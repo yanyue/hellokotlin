@@ -10,9 +10,15 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.lifecycleScope
 import com.example.hellokotlin.databinding.ActivityMainBinding
+import com.example.hellokotlin.kk.RxTimer
 
 class MainActivity : AppCompatActivity() {
+
+    init {
+        RxTimer.init(lifecycleScope)
+    }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
