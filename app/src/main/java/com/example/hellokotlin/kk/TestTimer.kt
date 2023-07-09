@@ -11,12 +11,8 @@ class TestTimer: Learning {
     }
 
     override fun run() {
-        RxTimer().time(1000, {
+        RxTimer().time(1000) {
             Log.i(TAG, "TestTimer, timerout")
-        })
-
-        RxTimer().time(1000, {
-            val t = "ste".length/"".length
-        })
+        }
     }
 }

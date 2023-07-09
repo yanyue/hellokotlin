@@ -26,7 +26,9 @@ public class LearnGeneric implements Learning {
         // compile error
         // List<Fruit> plate = new ArrayList<Apple>();
         // Good
-        List<? extends Fruit> plate = new ArrayList<Apple>();
+        ArrayList<Apple> t = new ArrayList<Apple>();
+        t.add(new Apple());
+        List<? extends Fruit> plate = t;
 
         // compile error
         // plate.add(apple);
