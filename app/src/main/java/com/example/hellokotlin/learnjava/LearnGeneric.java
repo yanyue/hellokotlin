@@ -81,10 +81,28 @@ public class LearnGeneric implements Learning {
         // error
         // t.popAll(apples);
 
-        // f 作为
+        // f 作为消费者
         List<Food> f = new ArrayList<>();
         t.popAll(f);
     }
+
+    /**
+     * 泛型接口
+     * @param <T>
+     */
+    interface GenericInstance<T> {
+        void onClicked(T t);
+    }
+
+    /**
+     * 泛型成员
+     */
+    class TestAbc {
+        public <T extends Number> void test(T t) {
+            System.out.println("test, t: " + t.toString());
+        }
+    }
+
     @Override
     public void run() {
         Log.i(TAG, "LearnGeneric");
